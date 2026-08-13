@@ -52,7 +52,6 @@ export default function DeveloperDetail() {
     queryFn: async () => (await api.get(`/developers/${id}/recommendations`)).data
   });
 
-  // Mutations
   const updateMutation = useMutation({
     mutationFn: async (updated: typeof editForm) => (await api.put(`/developers/${id}`, updated)).data,
     onSuccess: () => {

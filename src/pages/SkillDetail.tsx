@@ -39,7 +39,6 @@ export default function SkillDetail() {
     queryFn: async () => (await api.get(`/skills/${id}/related`)).data
   });
 
-  // Mutations
   const updateMutation = useMutation({
     mutationFn: async (updated: typeof editForm) => (await api.put(`/skills/${id}`, updated)).data,
     onSuccess: () => {

@@ -26,7 +26,6 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
-// Skills
 router.get('/skills', async (req, res) => {
   try {
     const skills = await graphService.getSkills();
@@ -78,7 +77,6 @@ router.get('/skills/:id/related', async (req, res) => {
   }
 });
 
-// Developers
 router.get('/developers', async (req, res) => {
   try {
     const developers = await graphService.getDevelopers();
@@ -150,7 +148,6 @@ router.get('/developers/:id/indirect-skills', async (req, res) => {
   }
 });
 
-// Projects
 router.get('/projects', async (req, res) => {
   try {
     const projects = await graphService.getProjects();
@@ -172,7 +169,6 @@ router.get('/projects/:id', async (req, res) => {
   }
 });
 
-// Job Roles
 router.get('/job-roles', async (req, res) => {
   try {
     const roles = await graphService.getJobRoles();
@@ -183,7 +179,6 @@ router.get('/job-roles', async (req, res) => {
   }
 });
 
-// Career Path
 router.get('/career-path', async (req, res) => {
   const { developerId, jobRoleId } = req.query;
   if (!developerId || !jobRoleId) {
@@ -198,7 +193,6 @@ router.get('/career-path', async (req, res) => {
   }
 });
 
-// Graph Explore
 router.get('/graph/:type/:id', async (req, res) => {
   const { type, id } = req.params;
   try {
@@ -210,7 +204,6 @@ router.get('/graph/:type/:id', async (req, res) => {
   }
 });
 
-// Create Mutations
 router.post('/developers', async (req, res) => {
   try {
     const dev = await graphService.createDeveloper(req.body);
@@ -241,7 +234,6 @@ router.post('/projects', async (req, res) => {
   }
 });
 
-// Update & Delete Mutations
 router.put('/developers/:id', async (req, res) => {
   try {
     const dev = await graphService.updateDeveloper(req.params.id, req.body);
@@ -263,7 +255,6 @@ router.delete('/developers/:id', async (req, res) => {
   }
 });
 
-// Developer Skill Relationship Mutations
 router.post('/developers/:id/skills', async (req, res) => {
   const { skillId, proficiency, years } = req.body;
   if (!skillId) return res.status(400).json({ error: 'Missing skillId' });
@@ -307,7 +298,6 @@ router.delete('/skills/:id', async (req, res) => {
   }
 });
 
-// Companies
 router.get('/companies', async (req, res) => {
   try {
     const companies = await graphService.getCompanies();
