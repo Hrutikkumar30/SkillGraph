@@ -21,7 +21,6 @@ async function main() {
     const cypherPath = path.resolve(process.cwd(), 'cypher/seed.cypher');
     const cypher = fs.readFileSync(cypherPath, 'utf8');
     
-    // Split by semicolons for multiple statements
     const statements = cypher.split(';').map(s => s.trim()).filter(s => s.length > 0);
     for (const statement of statements) {
       await session.run(statement);

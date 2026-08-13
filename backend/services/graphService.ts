@@ -33,7 +33,6 @@ export class GraphService {
     }
   }
 
-  // Dashboard Stats
   async getDashboardStats() {
     const query = `
       MATCH (d:Developer) WITH count(d) AS developers
@@ -55,7 +54,6 @@ export class GraphService {
     };
   }
 
-  // Skills
   async getSkills() {
     const query = `
       MATCH (s:Skill)
@@ -125,7 +123,6 @@ export class GraphService {
     return records.map(r => formatProps(r.get('j').properties));
   }
 
-  // Developers
   async getDevelopers() {
     const query = `
       MATCH (d:Developer)
@@ -182,7 +179,6 @@ export class GraphService {
     }));
   }
 
-  // Similar Developers
   async getSimilarDevelopers(developerId: string) {
     const query = `
       MATCH (d:Developer {id: $developerId})-[:HAS_SKILL]->(s:Skill)
@@ -200,7 +196,6 @@ export class GraphService {
     }));
   }
 
-  // Skill recommendations for developer
   async getDeveloperRecommendations(developerId: string) {
     const query = `
       MATCH (d:Developer {id: $developerId})-[:HAS_SKILL]->(known:Skill)-[:RELATED_TO]-(recommended:Skill)
@@ -217,7 +212,6 @@ export class GraphService {
     }));
   }
 
-  // Projects
   async getProjects() {
     const query = `
       MATCH (p:Project)
@@ -249,7 +243,6 @@ export class GraphService {
     };
   }
 
-  // Career Path (Query 6)
   async getCareerPath(developerId: string, jobRoleId: string) {
     const query = `
       MATCH (d:Developer {id: $developerId})
@@ -267,14 +260,12 @@ export class GraphService {
     }));
   }
   
-  // Job Roles
   async getJobRoles() {
     const query = `MATCH (j:JobRole) RETURN j`;
     const records = await this.runQuery(query);
     return records.map(r => formatProps(r.get('j').properties));
   }
 
-  // Graph Explorer
   async getGraphData(entityType: string, entityId: string) {
     const query = `
       MATCH (n {id: $entityId})-[r]-(m)
@@ -319,7 +310,6 @@ export class GraphService {
     };
   }
 
-  // Query 7 - Relationally awkward query
   async getIndirectUsefulSkills(developerId: string) {
     const query = `
       MATCH (d:Developer {id: $developerId})-[:HAS_SKILL]->(known:Skill)
@@ -338,7 +328,6 @@ export class GraphService {
     }));
   }
 
-  // Companies
   async getCompanies() {
     const query = `
       MATCH (c:Company)
@@ -440,7 +429,6 @@ export class GraphService {
     return { success: true, id };
   }
 
-  // Create Node Mutations
   async createDeveloper(data: { name: string; experience_years: number; location: string; bio: string; companyId?: string; skillIds?: string[] }) {
     const id = `dev-${Date.now()}`;
     const query = `
@@ -539,7 +527,6 @@ export class GraphService {
     return records.length ? formatProps(records[0].get('p').properties) : null;
   }
 
-  // Update & Delete Mutations
   async updateDeveloper(id: string, data: { name: string; experience_years: number; location: string; bio: string; companyId?: string }) {
     const query = `
       MATCH (d:Developer {id: $id})
@@ -596,7 +583,6 @@ export class GraphService {
     return { success: true, id };
   }
 
-  // Relationship Mutations: HAS_SKILL
   async addSkillToDeveloper(developerId: string, skillId: string, proficiency: string, years: number) {
     const query = `
       MATCH (d:Developer {id: $developerId})

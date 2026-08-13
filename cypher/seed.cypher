@@ -1,6 +1,3 @@
-// Cypher script to seed the database
-
-// 1. Create Skills
 CREATE (react:Skill {id: 'skill-react', name: 'React', category: 'Frontend', description: 'A JavaScript library for building user interfaces'});
 CREATE (ts:Skill {id: 'skill-ts', name: 'TypeScript', category: 'Language', description: 'Typed superset of JavaScript'});
 CREATE (js:Skill {id: 'skill-js', name: 'JavaScript', category: 'Language', description: 'Core language of the web'});
@@ -18,7 +15,6 @@ CREATE (tailwind:Skill {id: 'skill-tailwind', name: 'Tailwind CSS', category: 'F
 CREATE (git:Skill {id: 'skill-git', name: 'Git', category: 'Tooling', description: 'Version control system'});
 CREATE (k8s:Skill {id: 'skill-k8s', name: 'Kubernetes', category: 'DevOps', description: 'Container orchestration system'});
 
-// 2. Skill Relationships (RELATED_TO)
 MATCH (react:Skill {id: 'skill-react'}), (ts:Skill {id: 'skill-ts'}) CREATE (react)-[:RELATED_TO]->(ts);
 MATCH (react:Skill {id: 'skill-react'}), (js:Skill {id: 'skill-js'}) CREATE (react)-[:RELATED_TO]->(js);
 MATCH (react:Skill {id: 'skill-react'}), (nextjs:Skill {id: 'skill-nextjs'}) CREATE (react)-[:RELATED_TO]->(nextjs);
@@ -32,20 +28,17 @@ MATCH (postgres:Skill {id: 'skill-postgres'}), (redis:Skill {id: 'skill-redis'})
 MATCH (graphql:Skill {id: 'skill-graphql'}), (ts:Skill {id: 'skill-ts'}) CREATE (graphql)-[:RELATED_TO]->(ts);
 MATCH (react:Skill {id: 'skill-react'}), (tailwind:Skill {id: 'skill-tailwind'}) CREATE (react)-[:RELATED_TO]->(tailwind);
 
-// 3. Create Companies
 CREATE (c1:Company {id: 'company-acme', name: 'Acme Corp', industry: 'E-commerce', location: 'San Francisco'});
 CREATE (c2:Company {id: 'company-globex', name: 'Globex', industry: 'Healthcare', location: 'New York'});
 CREATE (c3:Company {id: 'company-soylent', name: 'Soylent Corp', industry: 'Food Tech', location: 'Remote'});
 CREATE (c4:Company {id: 'company-initech', name: 'Initech', industry: 'Software', location: 'Austin'});
 
-// 4. Create Job Roles
 CREATE (j1:JobRole {id: 'role-frontend', title: 'Frontend Engineer', description: 'Build user interfaces', level: 'Mid'});
 CREATE (j2:JobRole {id: 'role-backend', title: 'Backend Engineer', description: 'Build APIs and systems', level: 'Mid'});
 CREATE (j3:JobRole {id: 'role-fullstack', title: 'Fullstack Engineer', description: 'End-to-end development', level: 'Senior'});
 CREATE (j4:JobRole {id: 'role-devops', title: 'DevOps Engineer', description: 'Infrastructure and deployment', level: 'Mid'});
 CREATE (j5:JobRole {id: 'role-data', title: 'Data Engineer', description: 'Data pipelines and databases', level: 'Senior'});
 
-// 5. Job Role Skill Requirements
 MATCH (j1:JobRole {id: 'role-frontend'}), (react:Skill {id: 'skill-react'}) CREATE (j1)-[:REQUIRES_SKILL]->(react);
 MATCH (j1:JobRole {id: 'role-frontend'}), (ts:Skill {id: 'skill-ts'}) CREATE (j1)-[:REQUIRES_SKILL]->(ts);
 MATCH (j1:JobRole {id: 'role-frontend'}), (tailwind:Skill {id: 'skill-tailwind'}) CREATE (j1)-[:REQUIRES_SKILL]->(tailwind);
@@ -60,7 +53,6 @@ MATCH (j4:JobRole {id: 'role-devops'}), (docker:Skill {id: 'skill-docker'}) CREA
 MATCH (j4:JobRole {id: 'role-devops'}), (k8s:Skill {id: 'skill-k8s'}) CREATE (j4)-[:REQUIRES_SKILL]->(k8s);
 MATCH (j4:JobRole {id: 'role-devops'}), (aws:Skill {id: 'skill-aws'}) CREATE (j4)-[:REQUIRES_SKILL]->(aws);
 
-// 6. Companies Hiring for Roles
 MATCH (c1:Company {id: 'company-acme'}), (j1:JobRole {id: 'role-frontend'}) CREATE (c1)-[:HIRING_FOR]->(j1);
 MATCH (c1:Company {id: 'company-acme'}), (j3:JobRole {id: 'role-fullstack'}) CREATE (c1)-[:HIRING_FOR]->(j3);
 MATCH (c2:Company {id: 'company-globex'}), (j2:JobRole {id: 'role-backend'}) CREATE (c2)-[:HIRING_FOR]->(j2);
@@ -68,7 +60,6 @@ MATCH (c2:Company {id: 'company-globex'}), (j4:JobRole {id: 'role-devops'}) CREA
 MATCH (c3:Company {id: 'company-soylent'}), (j3:JobRole {id: 'role-fullstack'}) CREATE (c3)-[:HIRING_FOR]->(j3);
 MATCH (c4:Company {id: 'company-initech'}), (j1:JobRole {id: 'role-frontend'}) CREATE (c4)-[:HIRING_FOR]->(j1);
 
-// 7. Create Developers and their relationships
 CREATE (d1:Developer {id: 'dev-alice', name: 'Alice Smith', experience_years: 4, location: 'New York', bio: 'Frontend enthusiast'});
 MATCH (d1:Developer {id: 'dev-alice'}), (react:Skill {id: 'skill-react'}) CREATE (d1)-[:HAS_SKILL {proficiency: 'Expert', years: 4}]->(react);
 MATCH (d1:Developer {id: 'dev-alice'}), (ts:Skill {id: 'skill-ts'}) CREATE (d1)-[:HAS_SKILL {proficiency: 'Advanced', years: 3}]->(ts);
@@ -99,7 +90,6 @@ MATCH (d5:Developer {id: 'dev-eva'}), (python:Skill {id: 'skill-python'}) CREATE
 MATCH (d5:Developer {id: 'dev-eva'}), (fastapi:Skill {id: 'skill-fastapi'}) CREATE (d5)-[:HAS_SKILL {proficiency: 'Advanced', years: 3}]->(fastapi);
 MATCH (d5:Developer {id: 'dev-eva'}), (postgres:Skill {id: 'skill-postgres'}) CREATE (d5)-[:HAS_SKILL {proficiency: 'Advanced', years: 4}]->(postgres);
 
-// 8. Create Projects
 CREATE (p1:Project {id: 'proj-storefront', name: 'Storefront UI', description: 'Next generation e-commerce frontend', difficulty: 'Medium', year: 2023});
 MATCH (p1:Project {id: 'proj-storefront'}), (react:Skill {id: 'skill-react'}) CREATE (p1)-[:USES_SKILL]->(react);
 MATCH (p1:Project {id: 'proj-storefront'}), (ts:Skill {id: 'skill-ts'}) CREATE (p1)-[:USES_SKILL]->(ts);
@@ -132,4 +122,3 @@ MATCH (p5:Project {id: 'proj-mvp'}), (js:Skill {id: 'skill-js'}) CREATE (p5)-[:U
 MATCH (p5:Project {id: 'proj-mvp'}), (react:Skill {id: 'skill-react'}) CREATE (p5)-[:USES_SKILL]->(react);
 MATCH (p5:Project {id: 'proj-mvp'}), (c3:Company {id: 'company-soylent'}) CREATE (p5)-[:BUILT_FOR]->(c3);
 MATCH (d3:Developer {id: 'dev-charlie'}), (p5:Project {id: 'proj-mvp'}) CREATE (d3)-[:WORKED_ON {role: 'Developer'}]->(p5);
-
