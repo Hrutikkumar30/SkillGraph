@@ -60,17 +60,6 @@ export function AppShell() {
             </NavLink>
           ))}
         </nav>
-
-        {/* Database Status Indicator */}
-        <div className="p-4 m-4 bg-slate-900 text-white rounded-xl space-y-2">
-          <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
-            <Activity className="w-3.5 h-3.5 animate-pulse" />
-            CognoDB Graph Connected
-          </div>
-          <p className="text-[11px] text-slate-400 leading-tight">
-            Cypher graph driver connected via Bolt protocol.
-          </p>
-        </div>
       </aside>
 
       {/* Main Content */}
