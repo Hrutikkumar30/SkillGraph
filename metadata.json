@@ -1,0 +1,6 @@
+{
+  "name": "SkillGraph",
+  "description": "Developer Skill & Career Relationship Explorer powered by CognoDB graph database.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

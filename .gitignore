@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Production build outputs
+build/
+dist/
+
+# Test coverage & logs
+coverage/
+*.log
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Environment configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+.env.example
+
+# Struture related
+AGENTS.md
